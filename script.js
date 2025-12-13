@@ -1,4 +1,4 @@
-function addNewTime(time, status){
+function addNewTime(time, ao5){
     const table = document.getElementById("resultTable");
 
     const newResult = table.insertRow(1);
@@ -7,8 +7,10 @@ function addNewTime(time, status){
     const newStatus = newResult.insertCell(1);
 
     newTime.innerText = time;
-    newStatus.innerText = status;
+    newStatus.innerText = ao5;
 }
+
+let resultList = [];
 
 const timerMil = document.getElementById("mil");
 const timerSec = document.getElementById("sec");
@@ -51,7 +53,34 @@ window.addEventListener("keydown", (e) => {
     }
     else{
         if (isTimerStart == 1){
-            addNewTime(String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0"))
+            resultList.push(min*6000+sec*100+mil);
+            if(resultList.length>=5){
+                let sum = 0;
+                let maximum = resultList[resultList.length-1];
+                let minnimum = resultList[resultList.length-1];
+                for(let i = resultList.length-1; i>=resultList.length-5; i--){
+                    sum += resultList[i];
+                    if (resultList[i] > maximum){
+                        maximum = resultList[i];
+                    }
+                    if (resultList[i] < minnimum){
+                        minnimum = resultList[i];
+                    }
+
+                }
+                sum -= minnimum;
+                sum -= maximum;
+                sum = Math.round(sum/3);
+
+                minOfAo5 = Math.floor(sum/6000);
+                SecOfAo5 = Math.floor(sum/100)%60;
+                milOfAo5 = sum%100;
+
+                addNewTime(String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0"), String(minOfAo5).padStart(2,"0") + ":" + String(SecOfAo5).padStart(2,"0") + "." + String(milOfAo5).padStart(2,"0"))
+            }
+            else{
+                addNewTime((String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0")), "-")
+            }
         }
         clearInterval(interval);
         isTimerStart = 0;
