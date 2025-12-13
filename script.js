@@ -1,7 +1,7 @@
 function addNewTime(time, status){
     const table = document.getElementById("resultTable");
 
-    const newResult = table.insertRow();
+    const newResult = table.insertRow(1);
 
     const newTime = newResult.insertCell(0);
     const newStatus = newResult.insertCell(1);
@@ -50,11 +50,13 @@ window.addEventListener("keydown", (e) => {
         document.getElementById("timer").classList.add("ready");
     }
     else{
+        if (isTimerStart == 1){
+            addNewTime(String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0"))
+        }
         clearInterval(interval);
         isTimerStart = 0;
         ready = 0;
         document.getElementById("timer").classList.remove("ready");
         document.getElementById("timer").classList.remove("running");
-        addNewTime(String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0"))
     }
 })
