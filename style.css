@@ -3,18 +3,26 @@ body{
     font-family: "Arial";
 
 }
-.timer{
-    font-size:5rem;
-}
 
 .scramble{
     font-size:2rem;
+    margin-top:3rem;
+    background-color: skyblue;
 }
+.timer{
+    font-size:5rem;
+    padding:5rem;
+    background-color: pink;
+    margin:2rem 0;
+}
+
+
 
 th{
     font-size:2rem;
     border:0.1rem solid grey;
     padding:0.5rem;
+    width:50%;
 }
 td{
     font-size:2rem;
