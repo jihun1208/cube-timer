@@ -15,32 +15,33 @@ body{
 }
 
 
-
+th#idx{
+    width:20%
+}
 th{
     font-size:2rem;
     border:0.1rem solid grey;
     padding:0.5rem;
-    width:50%;
+    width:40%;
 }
 td{
     font-size:2rem;
     border:0.1rem solid grey;
     padding:0.5rem;
-    width:50%;
+    box-shadow: 0 0 5px red;
 }
 
 table{
     border-spacing: 0;
     width:100%;
     border:0.1rem solid grey;
-    
 }
 
 .result{
-    height:14.2rem;
+    height:17.7rem; /*1solve == 3.5rem */
     overflow-y:auto;
     box-shadow: 0 0 5px grey;
-    width:50%;
+    width:80%;
     margin: 0 auto;
 }
 

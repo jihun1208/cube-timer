@@ -10,6 +10,7 @@ let isTimerStart = 0;
 let mil = 0;
 let sec = 0;
 let min = 0;
+let idx = 0;
 
 async function generateScramble(){
     let scramble = await randomScrambleForEvent("333bf");
@@ -24,14 +25,15 @@ async function generateScramble(){
 
 generateScramble();
 
-function addNewTime(time, ao5){
+function addNewTime(idx, time, ao5){
     const table = document.getElementById("resultTable");
 
     const newResult = table.insertRow(1);
+    const newIdx = newResult.insertCell(0)
+    const newTime = newResult.insertCell(1);
+    const newStatus = newResult.insertCell(2);
 
-    const newTime = newResult.insertCell(0);
-    const newStatus = newResult.insertCell(1);
-
+    newIdx.innerText = idx;
     newTime.innerText = time;
     newStatus.innerText = ao5;
 }
@@ -113,13 +115,13 @@ window.addEventListener("keydown", (e) => {
         if (isTimerStart == 1){
             generateScramble();
             resultList.push(min*6000+sec*100+mil);
-            if(resultList.length>=3){
-                let [minOfAo5, secOfAo5, milOfAo5] = meanOf(3);
+            if(resultList.length>=5){
+                let [minOfAo5, secOfAo5, milOfAo5] = averageOf(5);
 
-                addNewTime(String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0"), String(minOfAo5).padStart(2,"0") + ":" + String(secOfAo5).padStart(2,"0") + "." + String(milOfAo5).padStart(2,"0"))
+                addNewTime(++idx, String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0"), String(minOfAo5).padStart(2,"0") + ":" + String(secOfAo5).padStart(2,"0") + "." + String(milOfAo5).padStart(2,"0"))
             }
             else{
-                addNewTime((String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0")), "-")
+                addNewTime(++idx, (String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0")), "-")
             }
         }
         clearInterval(interval);
