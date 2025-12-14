@@ -1,35 +1,51 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cube Timer</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize.css/8.0.1/normalize.min.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <link rel="stylesheet" href="style.css" />
   <body>
     <header>
       <h1>Cube Timer</h1>
     </header>
 
-    <div class="scramble">
-      <span id="scramble"></span>
-    </div>
+    <main>
+      <div class="scramble">
+        <span id="scramble"></span>
+      </div>
 
-    <div class="timer" id="timer">
-      <span id="min">00</span>:<span id="sec">00</span>.<span id="mil">00</span>
-    </div>
+      <div class="timer" id="timer">
+        <span id="min">00</span>:<span id="sec">00</span>.<span id="mil"
+          >00</span
+        >
+      </div>
 
-    <div class="result">
-      <table class="resultTable" id="resultTable">
-        <tr>
-          <th id="idx">#</th>
-          <th>Results</th>
-          <th>Ao5</th>
-        </tr>
-      </table>
-    </div>
+      <div class="result">
+        <table class="resultTable" id="resultTable">
+          <thead>
+            <tr>
+              <th class="col-idx">#</th>
+              <th class="col-time">Results</th>
+              <th class="col-ao5">Ao5</th>
+              <th class="col-ao12">Ao12</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
 
     <script type="module" src="script.js"></script>
   </body>
