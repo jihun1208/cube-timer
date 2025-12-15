@@ -12,11 +12,11 @@ let sec = 0;
 let min = 0;
 let idx = 0;
 
-async function generateScramble(){
+async function generateScramble() {
     let scramble = await randomScrambleForEvent("333bf");
     let scrambles = String(scramble).split("");
-    for (let i=0; i<scrambles.length; i++){
-        if(scrambles[i] == 'D' && scrambles[i+1] == 'w')
+    for (let i = 0; i < scrambles.length; i++) {
+        if (scrambles[i] == 'D' && scrambles[i + 1] == 'w')
             scrambles[i] = 'U';
     }
     scrambles = scrambles.join("");
@@ -25,7 +25,7 @@ async function generateScramble(){
 
 generateScramble();
 
-function addNewTime(idx, time, ao5){
+function addNewTime(idx, time, ao5) {
     const table = document.getElementById("resultTable");
 
     const newResult = table.insertRow(1);
@@ -40,42 +40,42 @@ function addNewTime(idx, time, ao5){
 
 
 
-function averageOf(num){
+function averageOf(num) {
     let sum = 0;
-    let maximum = resultList[resultList.length-1];
-    let minnimum = resultList[resultList.length-1];
-    for(let i = resultList.length-1; i>=resultList.length-num; i--){
+    let maximum = resultList[resultList.length - 1];
+    let minnimum = resultList[resultList.length - 1];
+    for (let i = resultList.length - 1; i >= resultList.length - num; i--) {
         sum += resultList[i];
-        if (resultList[i] > maximum){
+        if (resultList[i] > maximum) {
             maximum = resultList[i];
         }
-        if (resultList[i] < minnimum){
+        if (resultList[i] < minnimum) {
             minnimum = resultList[i];
         }
 
     }
     sum -= minnimum;
     sum -= maximum;
-    sum = Math.round(sum/(num-2));
+    sum = Math.round(sum / (num - 2));
 
-    let minOfAver = Math.floor(sum/6000);
-    let secOfAver = Math.floor(sum/100)%60;
-    let milOfAver = sum%100;
+    let minOfAver = Math.floor(sum / 6000);
+    let secOfAver = Math.floor(sum / 100) % 60;
+    let milOfAver = sum % 100;
     const average = [minOfAver, secOfAver, milOfAver];
 
     return average;
 }
 
-function meanOf(num){
+function meanOf(num) {
     let sum = 0;
-    for(let i = resultList.length-1; i>=resultList.length-num; i--){
+    for (let i = resultList.length - 1; i >= resultList.length - num; i--) {
         sum += resultList[i];
     }
-    sum = Math.round(sum/num);
+    sum = Math.round(sum / num);
 
-    let minOfMean = Math.floor(sum/6000);
-    let secOfMean = Math.floor(sum/100)%60;
-    let milOfMean = sum%100;
+    let minOfMean = Math.floor(sum / 6000);
+    let secOfMean = Math.floor(sum / 100) % 60;
+    let milOfMean = sum % 100;
     const mean = [minOfMean, secOfMean, milOfMean];
 
     return mean;
@@ -83,45 +83,45 @@ function meanOf(num){
 
 
 
-function timerStart(startTime){
-    let currentTime = Date.now()-startTime;
-    mil = (Math.floor(currentTime/10))%100;
-    sec = (Math.floor(currentTime/1000))%60;
-    min = (Math.floor(currentTime/60000));
-    timerMil.innerHTML=String(mil).padStart(2,"0");
-    timerSec.innerHTML=String(sec).padStart(2,"0");
-    timerMin.innerHTML=String(min).padStart(2,"0");
-    
+function timerStart(startTime) {
+    let currentTime = Date.now() - startTime;
+    mil = (Math.floor(currentTime / 10)) % 100;
+    sec = (Math.floor(currentTime / 1000)) % 60;
+    min = (Math.floor(currentTime / 60000));
+    timerMil.innerHTML = String(mil).padStart(2, "0");
+    timerSec.innerHTML = String(sec).padStart(2, "0");
+    timerMin.innerHTML = String(min).padStart(2, "0");
+
 }
 
 window.addEventListener("keyup", (e) => {
-    if (e.keyCode == 32 && isTimerStart == 0 && ready == 1){
+    if (e.keyCode == 32 && isTimerStart == 0 && ready == 1) {
         let startTime = Date.now();
         interval = setInterval(() => {
             timerStart(startTime);
         }, 10);
-        isTimerStart= 1;
+        isTimerStart = 1;
         document.getElementById("timer").classList.add("running");
     }
 })
 
 window.addEventListener("keydown", (e) => {
-    
-    if(e.keyCode == 32 && isTimerStart==0){
+
+    if (e.keyCode == 32 && isTimerStart == 0) {
         ready = 1;
         document.getElementById("timer").classList.add("ready");
     }
-    else{
-        if (isTimerStart == 1){
+    else {
+        if (isTimerStart == 1) {
             generateScramble();
-            resultList.push(min*6000+sec*100+mil);
-            if(resultList.length>=5){
+            resultList.push(min * 6000 + sec * 100 + mil);
+            if (resultList.length >= 5) {
                 let [minOfAo5, secOfAo5, milOfAo5] = averageOf(5);
 
-                addNewTime(++idx, String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0"), String(minOfAo5).padStart(2,"0") + ":" + String(secOfAo5).padStart(2,"0") + "." + String(milOfAo5).padStart(2,"0"))
+                addNewTime(++idx, String(min).padStart(2, "0") + ":" + String(sec).padStart(2, "0") + "." + String(mil).padStart(2, "0"), String(minOfAo5).padStart(2, "0") + ":" + String(secOfAo5).padStart(2, "0") + "." + String(milOfAo5).padStart(2, "0"))
             }
-            else{
-                addNewTime(++idx, (String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0") + "." + String(mil).padStart(2,"0")), "-")
+            else {
+                addNewTime(++idx, (String(min).padStart(2, "0") + ":" + String(sec).padStart(2, "0") + "." + String(mil).padStart(2, "0")), "-")
             }
         }
         clearInterval(interval);
