@@ -129,5 +129,6 @@ window.addEventListener("keydown", (e) => {
         ready = 0;
         document.getElementById("timer").classList.remove("ready");
         document.getElementById("timer").classList.remove("running");
+
     }
 })
